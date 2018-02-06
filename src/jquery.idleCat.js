@@ -8,11 +8,11 @@
 	var defaults = {
 
 		// Number of seconds to wait between two scans of user activity.
-		interval: 20,
+		interval: 2,
 
 		// How many seconds to hold the activity from the moment of knowing
 		// there was not any activity.
-		release: 360,
+		release: 2,
 
 		// The default state of the idleness (use 'active' or 'idle').
 		state: 'active',
@@ -66,11 +66,6 @@
 				this.options.idleCallback.call(this.e);
 			}
 		}
-
-        jqDocument.one("mousemove", function (event) {
-            mouseX = event.pageX;
-            mouseY = event.pageY;
-        });
 
         jqDocument.on("keypress", function (event) {
             lastKeypress = (new Date).getTime();
@@ -138,6 +133,11 @@
 	};
 
 	Plugin.prototype.detectMovement = function() {
+
+        jqDocument.one("mousemove", function (event) {
+            mouseX = event.pageX;
+            mouseY = event.pageY;
+        });
 
 		//console.log(mouseX, mouseY);
 		var movement = (mouseX != oldMouseX) || (mouseY != oldMouseY) || (lastKeypress != oldLastKeypress);
